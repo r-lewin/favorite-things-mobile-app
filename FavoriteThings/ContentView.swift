@@ -18,55 +18,90 @@ private let dateFormatter: DateFormatter = {
 struct ContentView: View {
     @State private var dates = [Date]()
     var fruitDir: FruitDirectory
-    
     var body: some View {
         NavigationView {
-            MasterView(dates: $dates)
-                .navigationBarTitle(Text("Master"))
-                .navigationBarItems(
-                    leading: EditButton(),
-                    trailing: Button(
-                        action: {
-                            withAnimation { self.dates.insert(Date(), at: 0) }
-                        }
-                    ) {
-                        Image(systemName: "plus")
+            MasterView(fruitDir: fruitDir)
+            .navigationBarTitle("Fruits")
+            .navigationBarItems(
+                leading: EditButton(),
+                trailing: Button(
+                    action: {
+                        withAnimation { self.fruitDir.addFruit() }
                     }
-                )
-            DetailView()
-        }.navigationViewStyle(DoubleColumnNavigationViewStyle())
+                ) {
+                    Image(systemName: "plus")
+                }
+            )
+        }
+            .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
 struct MasterView: View {
-    @Binding var dates: [Date]
-
+    @ObservedObject var fruitDir: FruitDirectory
     var body: some View {
         List {
-            ForEach(dates, id: \.self) { date in
-                NavigationLink(
-                    destination: DetailView(selectedDate: date)
-                ) {
-                    Text("\(date, formatter: dateFormatter)")
-                }
-            }.onDelete { indices in
-                indices.forEach { self.dates.remove(at: $0) }
+            // Loops through array off spiders stored in Fruit Dir
+            ForEach(fruitDir.fruits) { fruit in
+                FruitRowView(fruit: fruit)
+            }.onDelete { indices in indices.forEach { self.fruitDir.fruits.remove(at: $0) } }
+        }
+    }
+}
+
+struct FruitRowView: View {
+    @ObservedObject var fruit: Fruit
+    var body: some View {
+        NavigationLink(destination: DetailView(fruit: fruit.self )){
+            HStack() {
+                fruit.getImg(url: fruit.picURL)
+                    .resizable()
+                    .frame(width: 64.0, height: 64.0)
+                Text(fruit.name)
+                    .fontWeight(.light)
+                Spacer()
+                Text(fruit.family)
+                    .fontWeight(.bold)
             }
         }
     }
 }
 
 struct DetailView: View {
-    var selectedDate: Date?
-
+   @ObservedObject var fruit: Fruit
     var body: some View {
-        Group {
-            if selectedDate != nil {
-                Text("\(selectedDate!, formatter: dateFormatter)")
-            } else {
-                Text("Detail view content goes here")
-            }
-        }.navigationBarTitle(Text("Detail"))
+        VStack(alignment: .center) {
+            Text("Notes")
+                .font(.title)
+            TextField("Enter text", text: $fruit.note)
+                .border(Color.gray)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            fruit.getImg(url: fruit.picURL)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .padding(.bottom)
+            VStack() {
+                TextField("Enter name", text: $fruit.name)
+                    .font(.title)
+                HStack(alignment: .center) {
+                    Text("Genus:")
+                        .fontWeight(.bold)
+                    TextField("Enter genus", text: $fruit.genus)
+                }
+                HStack(alignment: .center) {
+                    Text("Family")
+                        .fontWeight(.bold)
+                    TextField("Enter family", text: $fruit.family)
+                }
+                HStack() {
+                    Text("Image URL")
+                        .fontWeight(.bold)
+                    TextField("Enter Url", text: $fruit.picURL)
+                }
+            }.padding()
+            Spacer()
+        }
     }
 }
 
