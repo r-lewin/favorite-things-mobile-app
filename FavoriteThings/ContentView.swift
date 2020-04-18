@@ -8,13 +8,6 @@
 
 import SwiftUI
 
-private let dateFormatter: DateFormatter = {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .medium
-    dateFormatter.timeStyle = .medium
-    return dateFormatter
-}()
-
 struct ContentView: View {
     @State private var dates = [Date]()
     var fruitDir: FruitDirectory
@@ -44,7 +37,11 @@ struct MasterView: View {
             // Loops through array off spiders stored in Fruit Dir
             ForEach(fruitDir.fruits) { fruit in
                 FruitRowView(fruit: fruit)
-            }.onDelete { indices in indices.forEach { self.fruitDir.fruits.remove(at: $0) } }
+            }.onDelete { indices in
+                indices.forEach { self.fruitDir.fruits.remove(at: $0) }
+            }.onMove{ (indices, destination) in
+                self.fruitDir.fruits.move(fromOffsets: indices, toOffset: destination)
+            }
         }
     }
 }
