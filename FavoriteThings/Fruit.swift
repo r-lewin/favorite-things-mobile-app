@@ -10,15 +10,16 @@ import Foundation
 import UIKit
 import SwiftUI
 
+// Defines one fruit - Fruit is an observable object to accomodate real-time changes in the view
 class Fruit: ObservableObject, Identifiable {
     var id = UUID()
-    @Published var name: String
-    @Published var family: String
-    @Published var genus: String
-    @Published var note: String = ""
-    @Published var picURL: String = ""
-    var imageCache = Dictionary<String, Image>()
-    var pic : Image
+    @Published var name: String // Common name associated with the fruit
+    @Published var family: String // Family associated with the fruit
+    @Published var genus: String // Genus associated with the fruit
+    @Published var note: String = "" // Notes to be stored - Written in view
+    @Published var picURL: String = "" // Contains URL locatrion of image
+    var imageCache = Dictionary<String, Image>() // Caches images as they are change - Avoids redownloading
+    var pic : Image // Images displayed in view
     
     init(name: String, family: String, genus: String, picURL: String) {
         self.name = name
