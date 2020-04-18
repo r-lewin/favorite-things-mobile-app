@@ -9,17 +9,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var dates = [Date]()
-    var fruitDir: FruitDirectory
+    @ObservedObject var viewModel =  FruitDirectory()
     var body: some View {
         NavigationView {
-            MasterView(fruitDir: fruitDir)
+            MasterView(viewModel: viewModel)
             .navigationBarTitle("Fruits")
             .navigationBarItems(
                 leading: EditButton(),
                 trailing: Button(
                     action: {
-                        withAnimation { self.fruitDir.addFruit() }
+                        withAnimation { self.viewModel.fruits.append(Fruit()) }
                     }
                 ) {
                     Image(systemName: "plus")
@@ -31,16 +30,16 @@ struct ContentView: View {
 }
 
 struct MasterView: View {
-    @ObservedObject var fruitDir: FruitDirectory
+    @ObservedObject var viewModel: FruitDirectory
     var body: some View {
         List {
             // Loops through array off spiders stored in Fruit Dir
-            ForEach(fruitDir.fruits) { fruit in
+            ForEach(viewModel.fruits) { fruit in
                 FruitRowView(fruit: fruit)
             }.onDelete { indices in
-                indices.forEach { self.fruitDir.fruits.remove(at: $0) }
+                indices.forEach { self.viewModel.fruits.remove(at: $0) }
             }.onMove{ (indices, destination) in
-                self.fruitDir.fruits.move(fromOffsets: indices, toOffset: destination)
+                self.viewModel.fruits.move(fromOffsets: indices, toOffset: destination)
             }
         }
     }
@@ -103,8 +102,8 @@ struct DetailView: View {
 }
 
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(fruitDir: FruitDirectory(fruits: []))
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(fruitDir: FruitDirectory())
+//    }
+//}

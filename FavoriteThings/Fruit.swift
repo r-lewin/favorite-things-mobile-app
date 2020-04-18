@@ -11,7 +11,7 @@ import UIKit
 import SwiftUI
 
 // Defines one fruit - Fruit is an observable object to accomodate real-time changes in the view
-class Fruit: ObservableObject, Identifiable {
+class Fruit: ObservableObject, Identifiable, Codable {
     var id = UUID()
     @Published var name: String // Common name associated with the fruit
     @Published var family: String // Family associated with the fruit
@@ -19,14 +19,40 @@ class Fruit: ObservableObject, Identifiable {
     @Published var note: String = "" // Notes to be stored - Written in view
     @Published var picURL: String = "" // Contains URL locatrion of image
     var imageCache = Dictionary<String, Image>() // Caches images as they are change - Avoids redownloading
-    var pic : Image // Images displayed in view
+    var pic = Image("placeholder") // Images displayed in view
     
-    init(name: String, family: String, genus: String, picURL: String) {
-        self.name = name
-        self.family = family
-        self.genus = genus
-        self.picURL = picURL
-        self.pic = imageCache[picURL] ?? Image("placeholder")
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case family
+        case genus
+        case note
+        case picURL
+    }
+    
+    init() {
+        name = ""
+        family = ""
+        genus = ""
+        picURL = ""
+        pic = imageCache[picURL] ?? Image("placeholder")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        family = try container.decode(String.self, forKey: .family)
+        genus = try container.decode(String.self, forKey: .genus)
+        note = try container.decode(String.self, forKey: .note)
+        picURL = try container.decode(String.self, forKey: .picURL)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(family, forKey: .family)
+        try container.encode(genus, forKey: .genus)
+        try container.encode(note, forKey: .note)
+        try container.encode(picURL, forKey: .picURL)
     }
 }
 

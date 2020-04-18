@@ -9,28 +9,31 @@
 import UIKit
 import SwiftUI
 
+private let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+private let documentFolderURL = urls.first!
+private let fileURL = documentFolderURL.appendingPathComponent("fruits.json")
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    var fruitDir = FruitDirectory(fruits: [])
-
+    var fruitDir = FruitDirectory()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+
+        do{
+            let data = try Data(contentsOf: fileURL)
+            print(fileURL)
+            let decoder = JSONDecoder()
+            let decodedFruits = try decoder.decode(FruitDirectory.self, from: data)
+            print(decodedFruits.fruits.first?.name ?? "no products")
+            fruitDir = decodedFruits
+        } catch {
+            print("Got \(error)")
+        }
         
-        fruitDir.addFruit(name: "Banana", family: "Musaceae", genus: "Musa", picURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKZU95zY7wh2okDgLdgKYRQb45BJ1uKuGTtjtmwdo3zc1xai2d&usqp=CAU")
-
-        fruitDir.addFruit(name: "Pineapple", family: "Bromeliaceae", genus: "Ananas", picURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQWRAnMgTkBLcYtAQEPtFJ-r8bkdZxyeUWcbzm0_o1zZbF4Sl1e&usqp=CAU")
-
-        fruitDir.addFruit(name: "Mandarin", family: "Rutaceae", genus: "Citrus", picURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRXAUV5aeLODH6z05M6Daf6uIX13RNbwtpJT1FWDBntm2jPTOcJ&usqp=CAU")
-
-        fruitDir.addFruit(name: "Mango", family: "Anacardiaceae", genus: "Mangifera", picURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNo5ymn3vc5dWd0Lk997QkHWr15B94qCo8es4LZDR6XuFf3k_9&usqp=CAU")
-
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView(fruitDir: fruitDir)
+        let contentView = ContentView(viewModel: fruitDir)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -64,6 +67,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        do {
+          let json = JSONEncoder()
+            print(fileURL)
+          let data = try json.encode(fruitDir)
+          try data.write(to: fileURL)
+//          let t = try Data(contentsOf: fileURL)
+//          let decoder = JSONDecoder()
+//          let u = try decoder.decode(Person.self, from: t)
+//          print(u.firstName)
+        } catch {
+          print("Got \(error)")
+        }
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.

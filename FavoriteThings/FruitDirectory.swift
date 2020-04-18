@@ -9,15 +9,24 @@
 import Foundation
 
 // Defines FruitDirectory including fruits array containing Fruit type
-class FruitDirectory: ObservableObject, Identifiable {
-    @Published var fruits: [Fruit] = []
+class FruitDirectory: ObservableObject, Identifiable, Codable {
+    @Published var fruits: [Fruit]
     
-    init(fruits: [Fruit]) {
-        self.fruits = []
+    private enum CodingKeys: String, CodingKey {
+        case fruits
     }
-    // To add fruit to the directory
-    func addFruit(name: String = "", family: String = "", genus: String = "", picURL: String = "") {
-        let fruit = Fruit(name: name, family: family, genus: genus, picURL: picURL)
-        fruits.append(fruit)
+    
+    init() {
+        fruits = [Fruit]()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        fruits = try container.decode([Fruit].self, forKey: .fruits)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(fruits, forKey: .fruits)
     }
 }
