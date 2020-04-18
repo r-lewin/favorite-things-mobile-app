@@ -17,7 +17,8 @@ private let dateFormatter: DateFormatter = {
 
 struct ContentView: View {
     @State private var dates = [Date]()
-
+    var fruitDir: FruitDirectory
+    
     var body: some View {
         NavigationView {
             MasterView(dates: $dates)
@@ -72,6 +73,6 @@ struct DetailView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(fruitDir: FruitDirectory(fruits: []))
     }
 }

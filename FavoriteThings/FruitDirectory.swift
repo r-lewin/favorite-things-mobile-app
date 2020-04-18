@@ -12,7 +12,7 @@ import Foundation
 class FruitDirectory: ObservableObject, Identifiable {
     @Published var fruits: [Fruit] = []
     
-    init(fuirts: [Fruit]) {
+    init(fruits: [Fruit]) {
         self.fruits = []
     }
     // To add fruit to the directory
