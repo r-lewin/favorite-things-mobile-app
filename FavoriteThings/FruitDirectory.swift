@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+class FruitDirectory: ObservableObject, Identifiable {
+    @Published var fruits: [Fruit] = []
+    
+    init(fuirts: [Fruit]) {
+        self.fruits = []
+    }
+    
+    func addFruit(name: String = "", family: String = "", genus: String = "", picURL: String = "") {
+        let fruit = Fruit(name: name, family: family, genus: genus, picURL: picURL)
+        fruits.append(fruit)
+    }
+}
