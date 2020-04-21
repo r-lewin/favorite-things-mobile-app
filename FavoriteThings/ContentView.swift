@@ -64,11 +64,14 @@ struct FruitRowView: View {
                 fruit.getImg(url: fruit.picURL)
                     .resizable()
                     .frame(width: 64.0, height: 64.0)
-                Text(fruit.name)
-                    .fontWeight(.light)
                 Spacer()
-                Text(fruit.family)
+                Text(fruit.name)
                     .fontWeight(.bold)
+                Spacer()
+                Text(fruit.genus)
+                    .fontWeight(.light)
+                    .italic()
+                Spacer()
             }
         }
     }
@@ -100,6 +103,11 @@ struct DetailView: View {
                     Text("Family")
                         .fontWeight(.bold)
                     TextField("Enter family", text: $fruit.family)
+                }
+                HStack(alignment: .center) {
+                    Text("Taste")
+                        .fontWeight(.bold)
+                    TextField("Enter taste", text: $fruit.taste)
                 }
                 HStack() {
                     Text("Image URL")

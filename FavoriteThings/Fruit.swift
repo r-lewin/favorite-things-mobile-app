@@ -16,6 +16,7 @@ class Fruit: ObservableObject, Identifiable, Codable {
     @Published var name: String // Common name associated with the fruit
     @Published var family: String // Family associated with the fruit
     @Published var genus: String // Genus associated with the fruit
+    @Published var taste: String
     @Published var note: String = "" // Notes to be stored - Written in view
     @Published var picURL: String = "" // Contains URL locatrion of image
     var imageCache = Dictionary<String, Image>() // Caches images as they are change - Avoids redownloading
@@ -25,6 +26,7 @@ class Fruit: ObservableObject, Identifiable, Codable {
         case name
         case family
         case genus
+        case taste
         case note
         case picURL
     }
@@ -33,6 +35,7 @@ class Fruit: ObservableObject, Identifiable, Codable {
         name = ""
         family = ""
         genus = ""
+        taste = ""
         picURL = ""
         pic = imageCache[picURL] ?? Image("placeholder")
     }
@@ -42,6 +45,7 @@ class Fruit: ObservableObject, Identifiable, Codable {
         name = try container.decode(String.self, forKey: .name)
         family = try container.decode(String.self, forKey: .family)
         genus = try container.decode(String.self, forKey: .genus)
+        taste = try container.decode(String.self, forKey: .taste)
         note = try container.decode(String.self, forKey: .note)
         picURL = try container.decode(String.self, forKey: .picURL)
     }
@@ -51,6 +55,7 @@ class Fruit: ObservableObject, Identifiable, Codable {
         try container.encode(name, forKey: .name)
         try container.encode(family, forKey: .family)
         try container.encode(genus, forKey: .genus)
+        try container.encode(genus, forKey: .taste)
         try container.encode(note, forKey: .note)
         try container.encode(picURL, forKey: .picURL)
     }
