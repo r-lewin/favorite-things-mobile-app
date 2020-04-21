@@ -23,10 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         do{
             let data = try Data(contentsOf: fileURL)
-            print(fileURL)
             let decoder = JSONDecoder()
             let decodedFruits = try decoder.decode(FruitDirectory.self, from: data)
-            print(decodedFruits.fruits.first?.name ?? "no products")
             fruitDir = decodedFruits
         } catch {
             print("Got \(error)")
@@ -69,7 +67,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {
         do {
           let json = JSONEncoder()
-            print(fileURL)
           let data = try json.encode(fruitDir)
           try data.write(to: fileURL)
         } catch {
