@@ -9,9 +9,10 @@
 import UIKit
 import SwiftUI
 
-private let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-private let documentFolderURL = urls.first!
-private let fileURL = documentFolderURL.appendingPathComponent("fruits.json")
+private let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask) //Accessed the file path and stored in var for later use
+private let documentFolderURL = urls.first!//Accessed the file path and stored in var for later use
+
+private let fileURL = documentFolderURL.appendingPathComponent("fruits.json") //Finishes path to txt file with file name
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -20,12 +21,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var fruitDir = FruitDirectory()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
+        
+        // Sets up decoder and uses it to decode JSON data stoored in fileURL
         do{
             let data = try Data(contentsOf: fileURL)
             let decoder = JSONDecoder()
             let decodedFruits = try decoder.decode(FruitDirectory.self, from: data)
-            fruitDir = decodedFruits
+            fruitDir = decodedFruits // initialises fruitDir with decoded data
         } catch {
             print("Got \(error)")
         }
@@ -65,6 +67,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        // Sets up encoder to be use when scene is suspended - writes encoded data to fileURL to offer persistent data
         do {
           let json = JSONEncoder()
           let data = try json.encode(fruitDir)

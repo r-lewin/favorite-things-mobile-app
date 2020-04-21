@@ -22,6 +22,7 @@ class Fruit: ObservableObject, Identifiable, Codable {
     var imageCache = Dictionary<String, Image>() // Caches images as they are change - Avoids redownloading
     var pic = Image("placeholder") // Images displayed in view
     
+    // Adds keys to be used when encoding and decoding fruit data
     private enum CodingKeys: String, CodingKey {
         case name
         case family
@@ -31,6 +32,7 @@ class Fruit: ObservableObject, Identifiable, Codable {
         case picURL
     }
     
+    // Inits empty values - Needed seperate from required init as values are initilaised and published
     init() {
         name = ""
         family = ""
@@ -40,6 +42,7 @@ class Fruit: ObservableObject, Identifiable, Codable {
         pic = imageCache[picURL] ?? Image("placeholder")
     }
     
+    // Decodes fruit data from JSON data found in the txt file init in scene delegate
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
@@ -50,6 +53,7 @@ class Fruit: ObservableObject, Identifiable, Codable {
         picURL = try container.decode(String.self, forKey: .picURL)
     }
 
+    // Encodes and the fruit data so that it can be saved in the txt file
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
@@ -61,18 +65,20 @@ class Fruit: ObservableObject, Identifiable, Codable {
     }
 }
 
+// Extends fruit so as to include image cache - helps avoid redownloading of images
 extension Fruit {
+    // Returns image if already existing in the image cache
     func getImg(url: String) -> Image{
         if self.pic == imageCache[url] {
             return self.pic
         }
-        
+        // Returns a placeholder image if img can't be found
         guard let imgURL = URL(string: self.picURL),
         let imgData = try? Data(contentsOf: imgURL),
         let uiImg = UIImage(data: imgData) else {
             return Image("placeholder")
         }
-        
+        // Returns downloaded img if valid and found using the picURL - Adds to image cache 
         let  downloadedImg = Image(uiImage: uiImg)
         imageCache[url] = downloadedImg
         print(self.imageCache.count)
