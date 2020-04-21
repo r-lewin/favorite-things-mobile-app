@@ -10,10 +10,11 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel =  FruitDirectory()
+    @State var masterTitle = "Fruit"
+    @Environment(\.editMode) var mode
     var body: some View {
         NavigationView {
-            MasterView(viewModel: viewModel)
-            .navigationBarTitle("Fruits")
+            MasterView(viewModel: viewModel, masterTitle: $masterTitle)
             .navigationBarItems(
                 leading: EditButton(),
                 trailing: Button(
@@ -31,17 +32,27 @@ struct ContentView: View {
 
 struct MasterView: View {
     @ObservedObject var viewModel: FruitDirectory
+    @Binding var masterTitle: String
+    @Environment(\.editMode) var mode
     var body: some View {
-        List {
-            // Loops through array off spiders stored in Fruit Dir
-            ForEach(viewModel.fruits) { fruit in
-                FruitRowView(fruit: fruit)
-            }.onDelete { indices in
-                indices.forEach { self.viewModel.fruits.remove(at: $0) }
-            }.onMove{ (indices, destination) in
-                self.viewModel.fruits.move(fromOffsets: indices, toOffset: destination)
+        VStack{
+            if mode?.wrappedValue == .active {
+                TextField("Enter title", text: $masterTitle)
+                    .font(Font.system(.largeTitle).bold())
+                    .padding(.leading)
+            }
+            List {
+                // Loops through array off spiders stored in Fruit Dir
+                ForEach(viewModel.fruits) { fruit in
+                    FruitRowView(fruit: fruit)
+                }.onDelete { indices in
+                    indices.forEach { self.viewModel.fruits.remove(at: $0) }
+                }.onMove{ (indices, destination) in
+                    self.viewModel.fruits.move(fromOffsets: indices, toOffset: destination)
+                }
             }
         }
+        .navigationBarTitle(mode?.wrappedValue == .active ? "" : masterTitle)
     }
 }
 
@@ -107,3 +118,9 @@ struct DetailView: View {
 //        ContentView(fruitDir: FruitDirectory())
 //    }
 //}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
+}

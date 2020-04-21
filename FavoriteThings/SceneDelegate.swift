@@ -72,10 +72,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print(fileURL)
           let data = try json.encode(fruitDir)
           try data.write(to: fileURL)
-//          let t = try Data(contentsOf: fileURL)
-//          let decoder = JSONDecoder()
-//          let u = try decoder.decode(Person.self, from: t)
-//          print(u.firstName)
         } catch {
           print("Got \(error)")
         }
