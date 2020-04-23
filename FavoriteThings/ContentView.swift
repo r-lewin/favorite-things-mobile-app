@@ -10,11 +10,11 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel =  FruitDirectory()
-    @State var masterTitle = "Fruit"
+//    @State var masterTitle = "Fruit"
     @Environment(\.editMode) var mode
     var body: some View {
         NavigationView {
-            MasterView(viewModel: viewModel, masterTitle: $masterTitle)
+            MasterView(viewModel: viewModel)
             .navigationBarItems(
                 leading: EditButton(),
                 trailing: Button(
@@ -32,12 +32,12 @@ struct ContentView: View {
 
 struct MasterView: View {
     @ObservedObject var viewModel: FruitDirectory
-    @Binding var masterTitle: String
+//    @Binding var masterTitle: String
     @Environment(\.editMode) var mode
     var body: some View {
         VStack{
             if mode?.wrappedValue == .active {
-                TextField("Enter title", text: $masterTitle)
+                TextField("Enter title", text: $viewModel.title)
                     .font(Font.system(.largeTitle).bold())
                     .padding(.leading)
             }
@@ -52,7 +52,7 @@ struct MasterView: View {
                 }
             }
         }
-        .navigationBarTitle(mode?.wrappedValue == .active ? "" : masterTitle)
+        .navigationBarTitle(mode?.wrappedValue == .active ? "": viewModel.title)
     }
 }
 
