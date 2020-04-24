@@ -22,6 +22,13 @@ class Fruit: ObservableObject, Identifiable, Codable {
     var imageCache = Dictionary<String, Image>() // Caches images as they are change - Avoids redownloading
     var pic = Image("placeholder") // Images displayed in view
     
+    @Published var nameTag = "Name" // Common name associated with the fruit
+    @Published var familyTag = "Family" // Family associated with the fruit
+    @Published var genusTag = "Genus" // Genus associated with the fruit
+    @Published var tasteTag = "Taste"
+    @Published var noteTag = "Notes" // Notes to be stored - Written in view
+    @Published var picURLTag = "Image URL"
+    
     // Adds keys to be used when encoding and decoding fruit data
     private enum CodingKeys: String, CodingKey {
         case name
@@ -30,6 +37,12 @@ class Fruit: ObservableObject, Identifiable, Codable {
         case taste
         case note
         case picURL
+        case nameTag
+        case familyTag
+        case genusTag
+        case tasteTag
+        case noteTag
+        case picURLTag
     }
     
     // Inits empty values - Needed seperate from required init as values are initilaised and published
@@ -51,6 +64,12 @@ class Fruit: ObservableObject, Identifiable, Codable {
         taste = try container.decode(String.self, forKey: .taste)
         note = try container.decode(String.self, forKey: .note)
         picURL = try container.decode(String.self, forKey: .picURL)
+        nameTag = try container.decode(String.self, forKey: .name)
+        familyTag = try container.decode(String.self, forKey: .family)
+        genusTag = try container.decode(String.self, forKey: .genus)
+        tasteTag = try container.decode(String.self, forKey: .taste)
+        noteTag = try container.decode(String.self, forKey: .note)
+        picURLTag = try container.decode(String.self, forKey: .picURL)
     }
 
     // Encodes and the fruit data so that it can be saved in the txt file
@@ -59,9 +78,15 @@ class Fruit: ObservableObject, Identifiable, Codable {
         try container.encode(name, forKey: .name)
         try container.encode(family, forKey: .family)
         try container.encode(genus, forKey: .genus)
-        try container.encode(genus, forKey: .taste)
+        try container.encode(taste, forKey: .taste)
         try container.encode(note, forKey: .note)
         try container.encode(picURL, forKey: .picURL)
+        try container.encode(nameTag, forKey: .nameTag)
+        try container.encode(familyTag, forKey: .familyTag)
+        try container.encode(genusTag, forKey: .genusTag)
+        try container.encode(tasteTag, forKey: .tasteTag)
+        try container.encode(noteTag, forKey: .noteTag)
+        try container.encode(picURLTag, forKey: .picURLTag)
     }
 }
 
@@ -81,7 +106,7 @@ extension Fruit {
         // Returns downloaded img if valid and found using the picURL - Adds to image cache 
         let  downloadedImg = Image(uiImage: uiImg)
         imageCache[url] = downloadedImg
-        print(self.imageCache.count)
+//        print(self.imageCache.count)
         return downloadedImg
         
     }

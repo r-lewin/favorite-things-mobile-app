@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel =  FruitDirectory()
-//    @State var masterTitle = "Fruit"
     @Environment(\.editMode) var mode
     var body: some View {
         NavigationView {
@@ -32,7 +31,6 @@ struct ContentView: View {
 
 struct MasterView: View {
     @ObservedObject var viewModel: FruitDirectory
-//    @Binding var masterTitle: String
     @Environment(\.editMode) var mode
     var body: some View {
         VStack{
@@ -95,23 +93,23 @@ struct DetailView: View {
                 TextField("Enter name", text: $fruit.name)
                     .font(.title)
                 HStack(alignment: .center) {
-                    Text("Genus:")
-                        .fontWeight(.bold)
-                    TextField("Enter genus", text: $fruit.genus)
+                    TextField("Enter tag", text: $fruit.genusTag)
+                        .font(Font.system(.headline).bold())
+                    TextField("Enter info", text: $fruit.genus)
                 }
                 HStack(alignment: .center) {
-                    Text("Family")
-                        .fontWeight(.bold)
-                    TextField("Enter family", text: $fruit.family)
+                    TextField("Enter tag", text: $fruit.familyTag)
+                        .font(Font.system(.headline).bold())
+                    TextField("Enter info", text: $fruit.family)
                 }
                 HStack(alignment: .center) {
-                    Text("Taste")
-                        .fontWeight(.bold)
-                    TextField("Enter taste", text: $fruit.taste)
+                    TextField("Enter tag", text: $fruit.tasteTag)
+                        .font(Font.system(.headline).bold())
+                    TextField("Enter info", text: $fruit.taste)
                 }
                 HStack() {
-                    Text("Image URL")
-                        .fontWeight(.bold)
+                    TextField("Enter tag", text: $fruit.picURLTag)
+                        .font(Font.system(.headline).bold())
                     TextField("Enter Url", text: $fruit.picURL)
                 }
             }.padding()

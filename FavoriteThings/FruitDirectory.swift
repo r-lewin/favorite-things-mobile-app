@@ -10,8 +10,8 @@ import Foundation
 
 // Defines FruitDirectory including fruits array containing Fruit type
 class FruitDirectory: ObservableObject, Identifiable, Codable {
-    @Published var fruits: [Fruit]
-    @Published var title: String
+    @Published var fruits: [Fruit] // Array to store fruit objects
+    @Published var title: String // Title to be displayed on home screen
     
     // Adds key to be used when encoding and decoding fruitDirectory data
     private enum CodingKeys: String, CodingKey {
@@ -19,7 +19,7 @@ class FruitDirectory: ObservableObject, Identifiable, Codable {
         case title
     }
     
-    // Inits empty values - Needed seperate from required init as value is initilaised and published
+    // Inits base values - Needed seperate from required init as value is initilaised and published
     init() {
         fruits = [Fruit]()
         title = "Fav Things"
