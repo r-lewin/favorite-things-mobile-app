@@ -9,14 +9,13 @@
 import SwiftUI
 
 struct ContentView: View {
-//    @ObservedObject var viewModel =  FruitDirectory()
     @Environment(\.managedObjectContext) var context
     @FetchRequest(sortDescriptors:  [NSSortDescriptor(keyPath: \Item_list.title, ascending: true)]) var item_lists: FetchedResults<Item_list>
     @Environment(\.editMode) var mode
     var body: some View {
         NavigationView {
             MasterView(item_list: item_lists.first ?? Item_list(context: context))
-                .navigationBarTitle(item_lists.first?.title ?? "Item List")
+//                .navigationBarTitle(item_lists.first?.title ?? "Item List")
                 .navigationBarItems(
                     leading: EditButton(),
                     trailing: Button(
@@ -38,7 +37,6 @@ struct ContentView: View {
 }
 
 struct MasterView: View {
-//    @ObservedObject var viewModel: FruitDirectory
     @Environment(\.managedObjectContext) var context
     @ObservedObject var item_list: Item_list
     @Environment(\.editMode) var mode
@@ -48,6 +46,7 @@ struct MasterView: View {
                 TextField("Enter title", text: Binding($item_list.title)!)
                     .font(Font.system(.largeTitle).bold())
                     .padding(.leading)
+                    .onDisappear(perform: { try? self.context.save() })
             }
             List{
                 ForEach(item_list.entries, id: \.self) { item in
@@ -69,9 +68,9 @@ struct ItemRowView: View {
     var body: some View {
         NavigationLink(destination: DetailView(item: item.self )){
             HStack() {
-//                item.getImg(url: fruit.picURL)
-//                    .resizable()
-//                    .frame(width: 64.0, height: 64.0)
+                item.getImg()
+                    .resizable()
+                    .frame(width: 84.0, height: 64.0)
                 Spacer()
                 Text(item.name!)
                     .fontWeight(.bold)
@@ -92,6 +91,10 @@ struct DetailView: View {
         VStack(alignment: .center) {
             Text("Notes")
                 .font(.title)
+            item.getImg()
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .padding(.bottom)
             TextField("Enter text", text: Binding($item.note)!)
                 .border(Color.gray)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -124,13 +127,6 @@ struct DetailView: View {
         }
     }
 }
-
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView(fruitDir: FruitDirectory())
-//    }
-//}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
