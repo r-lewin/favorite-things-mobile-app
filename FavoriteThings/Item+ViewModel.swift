@@ -1,5 +1,5 @@
 //
-//  Item_list+ViewModel.swift
+//  Item+ViewModel.swift
 //  FavoriteThings
 //
 //  Created by Ryan Lewin on 25/4/20.
@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-extension Item_list {
-    var entries: [Item] {
-        (self.stores?.array as? [Item]) ?? []
-    }
+extension Item {
     
+    var entries: [Item_info] {
+        (self.contains?.array as? [Item_info]) ?? []
+    }
 }
