@@ -15,7 +15,6 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             MasterView(item_list: item_lists.first ?? Item_list(context: context))
-//                .navigationBarTitle(item_lists.first?.title ?? "Item List")
                 .navigationBarItems(
                     leading: EditButton(),
                     trailing: Button(
@@ -33,98 +32,6 @@ struct ContentView: View {
                 )
         }
             .navigationViewStyle(StackNavigationViewStyle())
-    }
-}
-
-struct MasterView: View {
-    @Environment(\.managedObjectContext) var context
-    @ObservedObject var item_list: Item_list
-    @Environment(\.editMode) var mode
-    var body: some View {
-        VStack{
-            if mode?.wrappedValue == .active {
-                TextField("Enter title", text: Binding($item_list.title)!)
-                    .font(Font.system(.largeTitle).bold())
-                    .padding(.leading)
-                    .onDisappear(perform: { try? self.context.save() })
-            }
-            List{
-                ForEach(item_list.entries, id: \.self) { item in
-                    ItemRowView(item: item)
-                }.onDelete { indices in
-                    indices.forEach { self.item_list.removeFromStores(at: $0) }
-//                }.onMove{ (indices, destination) in
-//                    self.item_list.entries.move(fromOffsets: indices, toOffset: destination)
-                }
-            }
-        }
-        .navigationBarTitle(mode?.wrappedValue == .active ? "": item_list.title!)
-        .onAppear(perform: { try? self.context.save() })
-    }
-}
-
-struct ItemRowView: View {
-    @ObservedObject var item: Item
-    var body: some View {
-        NavigationLink(destination: DetailView(item: item.self )){
-            HStack() {
-                item.getImg()
-                    .resizable()
-                    .frame(width: 84.0, height: 64.0)
-                Spacer()
-                Text(item.name!)
-                    .fontWeight(.bold)
-                Spacer()
-                Text(item.info1!)
-                    .fontWeight(.light)
-                    .italic()
-                Spacer()
-            }
-        }
-    }
-}
-
-struct DetailView: View {
-    @Environment(\.managedObjectContext) var context
-    @ObservedObject var item: Item
-    var body: some View {
-        VStack(alignment: .center) {
-            Text("Notes")
-                .font(.title)
-            item.getImg()
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding(.bottom)
-            TextField("Enter text", text: Binding($item.note)!)
-                .border(Color.gray)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-            VStack() {
-                TextField("Enter name", text: Binding($item.name)!)
-                    .font(.title)
-                HStack(alignment: .center) {
-                    TextField("Enter tag", text: Binding($item.tag1)!)
-                        .font(Font.system(.headline).bold())
-                    TextField("Enter info", text: Binding($item.info1)!)
-                }
-                HStack(alignment: .center) {
-                    TextField("Enter tag", text: Binding($item.tag2)!)
-                        .font(Font.system(.headline).bold())
-                    TextField("Enter info", text: Binding($item.info2)!)
-                }
-                HStack(alignment: .center) {
-                    TextField("Enter tag", text: Binding($item.tag3)!)
-                        .font(Font.system(.headline).bold())
-                    TextField("Enter info", text: Binding($item.info3)!)
-                }
-                HStack() {
-                    Text("Pic URL")
-                        .font(Font.system(.headline).bold())
-                    TextField("Enter Url", text: Binding($item.image_url)!)
-                }
-            }.padding()
-            Spacer()
-        }
     }
 }
 
