@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+        <attribute name="creation_date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="image_url" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String" defaultValueString="Item name"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <relationship name="contains" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Item_info" inverseName="stored" inverseEntity="Item_info"/>
+        <relationship name="stored" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item_list" inverseName="stores" inverseEntity="Item_list"/>
+    </entity>
+    <entity name="Item_info" representedClassName="Item_info" syncable="YES" codeGenerationType="class">
+        <attribute name="content" attributeType="String"/>
+        <attribute name="tag" attributeType="String" defaultValueString="Info tag"/>
+        <relationship name="stored" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="contains" inverseEntity="Item"/>
+    </entity>
+    <entity name="Item_list" representedClassName="Item_list" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String" defaultValueString="List title"/>
+        <relationship name="stores" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Item" inverseName="stored" inverseEntity="Item"/>
+    </entity>
+    <elements>
+        <element name="Item" positionX="-17929.72265625" positionY="-3710.9296875" width="124.98828125" height="133"/>
+        <element name="Item_list" positionX="-18113.02734375" positionY="-3828.80859375" width="128" height="88"/>
+        <element name="Item_info" positionX="-17741.71484375" positionY="-3509.2265625" width="128" height="88"/>
+    </elements>
+</model>
