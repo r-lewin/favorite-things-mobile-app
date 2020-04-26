@@ -10,8 +10,16 @@ import Foundation
 import CoreData
 
 extension Item_list {
+    
     var entries: [Item] {
         (self.stores?.array as? [Item]) ?? []
     }
     
+    func move(moving: Item, to: Int) {
+        var index = entries.firstIndex(of: moving)!
+        var dest = to
+        if to > index {dest -= 1}
+        self.removeFromStores(at: index)
+        self.insertIntoStores(moving, at: dest)
+    }
 }

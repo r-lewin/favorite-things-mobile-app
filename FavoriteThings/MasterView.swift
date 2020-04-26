@@ -12,6 +12,7 @@ struct MasterView: View {
     @Environment(\.managedObjectContext) var context
     @ObservedObject var item_list: Item_list
     @Environment(\.editMode) var mode
+    
     var body: some View {
         VStack{
             if mode?.wrappedValue == .active {
@@ -25,8 +26,8 @@ struct MasterView: View {
                     ItemRowView(item: item)
                 }.onDelete { indices in
                     indices.forEach { self.item_list.removeFromStores(at: $0) }
-//                }.onMove{ (indices, destination) in
-//                    self.item_list.entries.move(fromOffsets: indices, toOffset: destination)
+                }.onMove{ (indices, destination) in
+                    indices.forEach { self.item_list.move(moving: self.item_list.entries[$0], to: destination)}
                 }
             }
         }
