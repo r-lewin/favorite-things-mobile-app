@@ -22,6 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            fatalError("No app delegate")
+        }
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
         // Sets up decoder and uses it to decode JSON data stoored in fileURL
         do{
             let data = try Data(contentsOf: fileURL)
@@ -33,7 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView(viewModel: fruitDir)
+        let contentView = ContentView().environment(\.managedObjectContext, context)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -49,6 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
+
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
