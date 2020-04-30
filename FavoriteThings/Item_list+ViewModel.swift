@@ -11,15 +11,11 @@ import CoreData
 
 extension Item_list {
     
+    //Creates array of Items as stored in DB. Allows us to muatate the list
     var entries: [Item] {
         get { (stores?.array as? [Item]) ?? [] }
         set { stores = NSOrderedSet(array: newValue) }
     }
-    
-//    var entries: [Item] {
-//        get {(entries?.array as? [Item]) ?? []}
-//        set {entries = NSOrderedSet(array: newValue)}
-//    }
     
 //    func move(moving: Item, to: Int) {
 //        let index = entries.firstIndex(of: moving)!

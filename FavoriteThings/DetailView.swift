@@ -16,8 +16,8 @@ struct DetailView: View {
             item.getImg()
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .padding(.bottom)
-            VStack() {
+                .padding()
+            ScrollView {
                 TextField("Enter name", text: $item.nameString)
                     .font(.largeTitle)
                     .padding(.bottom)
@@ -58,3 +58,5 @@ struct DetailView: View {
         }
     }
 }
+
+
