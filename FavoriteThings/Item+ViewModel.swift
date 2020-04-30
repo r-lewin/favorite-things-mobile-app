@@ -12,8 +12,23 @@ import SwiftUI
 
 extension Item {
     
-    var entries: [Item_info] {
-        (self.contains?.array as? [Item_info]) ?? []
+//    var entries: [Item_info] {
+//        (self.contains?.array as? [Item_info]) ?? []
+//    }
+    
+    var nameString: String {
+        get { name ?? "" }
+        set { name = newValue}
+    }
+    
+    var noteString: String {
+        get { note ?? ""}
+        set { note = newValue}
+    }
+    
+    var urlString: String {
+        get { image_url ?? "" }
+        set { image_url = newValue }
     }
     
     func getImg() -> Image{

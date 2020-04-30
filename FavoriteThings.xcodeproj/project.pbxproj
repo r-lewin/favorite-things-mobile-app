@@ -22,10 +22,6 @@
 		E49795202454F60C00216ACB /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E497951F2454F60C00216ACB /* MasterView.swift */; };
 		E49795222454F61F00216ACB /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49795212454F61F00216ACB /* RowView.swift */; };
 		E49795242454F62800216ACB /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49795232454F62800216ACB /* DetailView.swift */; };
-		E4F9E87A244A91D7009DBACD /* Fruit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9E879244A91D7009DBACD /* Fruit.swift */; };
-		E4F9E87B244A91D7009DBACD /* Fruit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9E879244A91D7009DBACD /* Fruit.swift */; };
-		E4F9E87D244A91EE009DBACD /* FruitDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9E87C244A91EE009DBACD /* FruitDirectory.swift */; };
-		E4F9E87E244A91EE009DBACD /* FruitDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9E87C244A91EE009DBACD /* FruitDirectory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,8 +69,6 @@
 		E497951F2454F60C00216ACB /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
 		E49795212454F61F00216ACB /* RowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
 		E49795232454F62800216ACB /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
-		E4F9E879244A91D7009DBACD /* Fruit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fruit.swift; sourceTree = "<group>"; };
-		E4F9E87C244A91EE009DBACD /* FruitDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitDirectory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,18 +135,15 @@
 		E456977C244A836B00C2C834 /* FavoriteThings */ = {
 			isa = PBXGroup;
 			children = (
+				E4B4F562245B719400CD758F /* Models */,
 				E456977D244A836B00C2C834 /* AppDelegate.swift */,
 				E456977F244A836B00C2C834 /* SceneDelegate.swift */,
 				E49795252454F63F00216ACB /* Views */,
-				E497951B24541B8000216ACB /* Item_list+ViewModel.swift */,
-				E497951D245431B200216ACB /* Item+ViewModel.swift */,
 				E4569783244A836D00C2C834 /* Assets.xcassets */,
 				E4569788244A836D00C2C834 /* LaunchScreen.storyboard */,
 				E456978B244A836D00C2C834 /* Info.plist */,
 				E4569785244A836D00C2C834 /* Preview Content */,
-				E4F9E879244A91D7009DBACD /* Fruit.swift */,
 				E40C56452453FD3B0060FB73 /* Model.xcdatamodeld */,
-				E4F9E87C244A91EE009DBACD /* FruitDirectory.swift */,
 			);
 			path = FavoriteThings;
 			sourceTree = "<group>";
@@ -192,6 +183,15 @@
 				E4569781244A836B00C2C834 /* ContentView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		E4B4F562245B719400CD758F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E497951D245431B200216ACB /* Item+ViewModel.swift */,
+				E497951B24541B8000216ACB /* Item_list+ViewModel.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,13 +325,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4F9E87A244A91D7009DBACD /* Fruit.swift in Sources */,
 				E49795222454F61F00216ACB /* RowView.swift in Sources */,
 				E456977E244A836B00C2C834 /* AppDelegate.swift in Sources */,
 				E4569780244A836B00C2C834 /* SceneDelegate.swift in Sources */,
 				E49795202454F60C00216ACB /* MasterView.swift in Sources */,
 				E49795242454F62800216ACB /* DetailView.swift in Sources */,
-				E4F9E87D244A91EE009DBACD /* FruitDirectory.swift in Sources */,
 				E4569782244A836B00C2C834 /* ContentView.swift in Sources */,
 				E497951E245431B200216ACB /* Item+ViewModel.swift in Sources */,
 				E497951C24541B8000216ACB /* Item_list+ViewModel.swift in Sources */,
@@ -343,9 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4F9E87B244A91D7009DBACD /* Fruit.swift in Sources */,
 				E4569795244A836D00C2C834 /* FavoriteThingsTests.swift in Sources */,
-				E4F9E87E244A91EE009DBACD /* FruitDirectory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

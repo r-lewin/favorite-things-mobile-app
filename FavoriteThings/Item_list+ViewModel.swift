@@ -12,14 +12,20 @@ import CoreData
 extension Item_list {
     
     var entries: [Item] {
-        (self.stores?.array as? [Item]) ?? []
+        get { (stores?.array as? [Item]) ?? [] }
+        set { stores = NSOrderedSet(array: newValue) }
     }
     
-    func move(moving: Item, to: Int) {
-        var index = entries.firstIndex(of: moving)!
-        var dest = to
-        if to > index {dest -= 1}
-        self.removeFromStores(at: index)
-        self.insertIntoStores(moving, at: dest)
-    }
+//    var entries: [Item] {
+//        get {(entries?.array as? [Item]) ?? []}
+//        set {entries = NSOrderedSet(array: newValue)}
+//    }
+    
+//    func move(moving: Item, to: Int) {
+//        let index = entries.firstIndex(of: moving)!
+//        var dest = to
+//        if to > index {dest -= 1}
+//        self.removeFromStores(at: index)
+//        self.insertIntoStores(moving, at: dest)
+//    }
 }

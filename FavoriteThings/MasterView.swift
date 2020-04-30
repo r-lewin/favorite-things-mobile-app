@@ -26,8 +26,8 @@ struct MasterView: View {
                     ItemRowView(item: item)
                 }.onDelete { indices in
                     indices.forEach { self.item_list.removeFromStores(at: $0) }
-                }.onMove{ (indices, destination) in
-                    indices.forEach { self.item_list.move(moving: self.item_list.entries[$0], to: destination)}
+                }.onMove { (indices, destinination) in
+                self.item_list.entries.move(fromOffsets: indices, toOffset: destinination)
                 }
             }
         }
@@ -35,3 +35,8 @@ struct MasterView: View {
         .onAppear(perform: { try? self.context.save() })
     }
 }
+
+
+//.onMove{ (indices, destination) in
+//    indices.forEach { self.item_list.move(moving: self.item_list.entries[$0], to: destination)}
+//}

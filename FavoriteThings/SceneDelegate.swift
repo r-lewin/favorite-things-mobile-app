@@ -18,7 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    var fruitDir = FruitDirectory()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -27,16 +26,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         let context = appDelegate.persistentContainer.viewContext
-        
-        // Sets up decoder and uses it to decode JSON data stoored in fileURL
-        do{
-            let data = try Data(contentsOf: fileURL)
-            let decoder = JSONDecoder()
-            let decodedFruits = try decoder.decode(FruitDirectory.self, from: data)
-            fruitDir = decodedFruits // initialises fruitDir with decoded data
-        } catch {
-            print("Got \(error)")
-        }
         
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView().environment(\.managedObjectContext, context)
@@ -74,14 +63,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        // Sets up encoder to be use when scene is suspended - writes encoded data to fileURL to offer persistent data
-        do {
-          let json = JSONEncoder()
-          let data = try json.encode(fruitDir)
-          try data.write(to: fileURL)
-        } catch {
-          print("Got \(error)")
-        }
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.

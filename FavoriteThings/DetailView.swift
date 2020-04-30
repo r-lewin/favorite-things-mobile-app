@@ -18,7 +18,7 @@ struct DetailView: View {
                 .aspectRatio(contentMode: .fit)
                 .padding(.bottom)
             VStack() {
-                TextField("Enter name", text: Binding($item.name)!)
+                TextField("Enter name", text: $item.nameString)
                     .font(.largeTitle)
                     .padding(.bottom)
                 HStack(alignment: .center) {
@@ -40,7 +40,7 @@ struct DetailView: View {
                 VStack(alignment:.center){
                     Text("Item Note")
                         .font(.title)
-                    TextField("Enter text", text: Binding($item.note)!)
+                    TextField("Enter text", text: $item.noteString)
                         .border(Color.gray)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.bottom)
@@ -48,7 +48,7 @@ struct DetailView: View {
                 VStack(alignment: .center) {
                     Text("Icon Url")
                         .font(.title)
-                    TextField("Enter Url", text: Binding($item.image_url)!)
+                    TextField("Enter Url", text: $item.urlString)
                     .border(Color.gray)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.bottom)
