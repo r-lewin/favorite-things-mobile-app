@@ -12,10 +12,6 @@ import SwiftUI
 
 extension Item {
     
-//    var entries: [Item_info] {
-//        (self.contains?.array as? [Item_info]) ?? []
-//    }
-    
     var nameString: String {
         get { name ?? "" }
         set { name = newValue}
@@ -29,6 +25,36 @@ extension Item {
     var urlString: String {
         get { image_url ?? "" }
         set { image_url = newValue }
+    }
+    
+    var tag1String: String {
+        get { tag1 ?? "" }
+        set { tag1 = newValue}
+    }
+    
+    var info1String: String {
+        get { info1 ?? "" }
+        set { info1 = newValue}
+    }
+    
+    var tag2String: String {
+        get { tag2 ?? "" }
+        set { tag2 = newValue}
+    }
+    
+    var info2String: String {
+        get { info2 ?? "" }
+        set { info2 = newValue}
+    }
+    
+    var tag3String: String {
+        get { tag3 ?? "" }
+        set { tag3 = newValue}
+    }
+    
+    var info3String: String {
+        get { info3 ?? "" }
+        set { info3 = newValue}
     }
     
     func getImg() -> Image{

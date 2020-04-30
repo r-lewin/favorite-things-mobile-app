@@ -10,21 +10,14 @@
         <attribute name="tag1" attributeType="String" defaultValueString="Tag"/>
         <attribute name="tag2" optional="YES" attributeType="String" defaultValueString="Tag"/>
         <attribute name="tag3" optional="YES" attributeType="String" defaultValueString="Tag"/>
-        <relationship name="contains" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Item_info" inverseName="stored" inverseEntity="Item_info"/>
         <relationship name="stored_in" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item_list" inverseName="stores" inverseEntity="Item_list"/>
-    </entity>
-    <entity name="Item_info" representedClassName="Item_info" syncable="YES" codeGenerationType="class">
-        <attribute name="content" attributeType="String" defaultValueString="&quot;Info Content&quot;"/>
-        <attribute name="tag" attributeType="String" defaultValueString="Info tag"/>
-        <relationship name="stored" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="contains" inverseEntity="Item"/>
     </entity>
     <entity name="Item_list" representedClassName="Item_list" syncable="YES" codeGenerationType="class">
         <attribute name="title" attributeType="String" defaultValueString="List title"/>
         <relationship name="stores" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Item" inverseName="stored_in" inverseEntity="Item"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-17929.72265625" positionY="-3710.9296875" width="124.98828125" height="208"/>
-        <element name="Item_info" positionX="-17711.890625" positionY="-3683.4765625" width="128" height="88"/>
+        <element name="Item" positionX="-17929.72265625" positionY="-3710.9296875" width="124.98828125" height="193"/>
         <element name="Item_list" positionX="-18113.02734375" positionY="-3828.80859375" width="128" height="73"/>
     </elements>
 </model>

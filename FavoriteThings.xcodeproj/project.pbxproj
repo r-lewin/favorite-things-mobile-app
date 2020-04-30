@@ -45,8 +45,6 @@
 		E40C56462453FD3B0060FB73 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		E40C5648245403A70060FB73 /* Item_list+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item_list+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E40C5649245403A70060FB73 /* Item_list+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item_list+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E40C564A245403A70060FB73 /* Item_info+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item_info+CoreDataClass.swift"; sourceTree = "<group>"; };
-		E40C564B245403A70060FB73 /* Item_info+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item_info+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E40C564C245403A70060FB73 /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E40C564D245403A70060FB73 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E40C5655245405DD0060FB73 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -110,8 +108,6 @@
 			children = (
 				E40C5648245403A70060FB73 /* Item_list+CoreDataClass.swift */,
 				E40C5649245403A70060FB73 /* Item_list+CoreDataProperties.swift */,
-				E40C564A245403A70060FB73 /* Item_info+CoreDataClass.swift */,
-				E40C564B245403A70060FB73 /* Item_info+CoreDataProperties.swift */,
 				E40C564C245403A70060FB73 /* Item+CoreDataClass.swift */,
 				E40C564D245403A70060FB73 /* Item+CoreDataProperties.swift */,
 				E456977C244A836B00C2C834 /* FavoriteThings */,

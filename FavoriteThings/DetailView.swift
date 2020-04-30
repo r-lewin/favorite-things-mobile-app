@@ -22,19 +22,19 @@ struct DetailView: View {
                     .font(.largeTitle)
                     .padding(.bottom)
                 HStack(alignment: .center) {
-                    TextField("Enter tag", text: Binding($item.tag1)!)
+                    TextField("Enter tag", text: $item.tag1String)
                         .font(Font.system(.headline).bold())
-                    TextField("Enter info", text: Binding($item.info1)!)
+                    TextField("Enter info", text: $item.info1String)
                 }
                 HStack(alignment: .center) {
-                    TextField("Enter tag", text: Binding($item.tag2)!)
+                    TextField("Enter tag", text: $item.tag2String)
                         .font(Font.system(.headline).bold())
-                    TextField("Enter info", text: Binding($item.info2)!)
+                    TextField("Enter info", text: $item.info2String)
                 }
                 HStack(alignment: .center) {
-                    TextField("Enter tag", text: Binding($item.tag3)!)
+                    TextField("Enter tag", text: $item.tag3String)
                         .font(Font.system(.headline).bold())
-                    TextField("Enter info", text: Binding($item.info3)!)
+                    TextField("Enter info", text: $item.info3String)
                         .padding(.bottom)
                 }
                 VStack(alignment:.center){
