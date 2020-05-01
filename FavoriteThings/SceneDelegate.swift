@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import CoreData
 
 private let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask) //Accessed the file path and stored in var for later use
 private let documentFolderURL = urls.first!//Accessed the file path and stored in var for later use
@@ -26,6 +27,41 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         let context = appDelegate.persistentContainer.viewContext
+        
+        var sampleItemList = [Item_list]()
+        var request: NSFetchRequest<Item_list> = Item_list.fetchRequest()
+        var sort = NSSortDescriptor(key: "title", ascending: false)
+        var count = 0
+        
+        do {
+            sampleItemList = try context.fetch(request)
+            print("Got \(sampleItemList.count) item lists")
+            count = sampleItemList.count
+        } catch {
+            print("Fetch failed")
+        }
+        
+        func createDummyData() {
+            let ent = NSEntityDescription.entity(forEntityName: "Item_list", in: context)
+            let testEnt = NSManagedObject(entity: ent!, insertInto: context)
+            testEnt.setValue("New Sample List", forKey: "title")
+            let itemEnt = NSEntityDescription.entity(forEntityName: "Item", in: context)
+            for _ in 1...4{
+                let testItemEnt = NSManagedObject(entity: itemEnt!, insertInto: context)
+                testItemEnt.setValue(testEnt, forKey: "stored_in")
+            }
+            do {
+                try context.save()
+                print("Saved")
+            } catch {
+                print("Error, not saved")
+            }
+        }
+        
+        
+        if count < 1 {
+            createDummyData()
+        }
         
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView().environment(\.managedObjectContext, context)
