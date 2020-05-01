@@ -29,8 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let context = appDelegate.persistentContainer.viewContext
         
         var sampleItemList = [Item_list]()
-        var request: NSFetchRequest<Item_list> = Item_list.fetchRequest()
-        var sort = NSSortDescriptor(key: "title", ascending: false)
+        let request: NSFetchRequest<Item_list> = Item_list.fetchRequest()
+        let _ = NSSortDescriptor(key: "title", ascending: false)
         var count = 0
         
         do {
