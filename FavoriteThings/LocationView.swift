@@ -21,15 +21,19 @@ struct LocationView: View {
                         .font(Font.system(.headline).bold())
                 }
                 HStack(alignment: .center) {
-                    Text("Longitude:")
+                    Text("Latitude:")
                         .font(Font.system(.headline).bold())
-                    TextField("Enter longitude", text: $item.longitude)
+                    TextField("Enter latitude", text: $item.latitude)
                 }
                 HStack(alignment: .center) {
                     Text("Latitude:")
                         .font(Font.system(.headline).bold())
                     TextField("Enter longitude", text: $item.longitude)
                 }
+                Button("Update Location Name"){
+                    self.item.updateNameFromCoords()
+                }
+                
             }.padding()
             Spacer()
         }

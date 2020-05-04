@@ -13,14 +13,19 @@ import CoreLocation
 
 extension Item {
     
+    var coordinates: CLLocationCoordinate2D {
+        get { CLLocationCoordinate2D(latitude: -27.962, longitude: 153.382) }
+        set { newValue }
+    }
+    
     var latitude: String {
         get { "\(lat)" }
-        set { lat = CLLocationDegrees(newValue)! }
+        set { lat = CLLocationDegrees(newValue) ?? coordinates.latitude}
     }
     
     var longitude: String {
         get { "\(lon)" }
-        set {lon = CLLocationDegrees(newValue)! }
+        set {lon = CLLocationDegrees(newValue) ?? coordinates.longitude }
     }
     
     var placeString: String {
@@ -102,6 +107,7 @@ extension Item {
                     print("Error: \(description)")
                     return
             }
+            self.coordinates = location.coordinate
             self.lat = location.coordinate.latitude
             self.lon = location.coordinate.longitude
         }
@@ -121,7 +127,7 @@ extension Item {
                 print("Error: \(description)")
                 return
             }
-            self.placeString = placemark.name ?? "Location Unknown"
+            self.placeString = placemark.name ?? placemark.locality ?? placemark.country ?? "Unknown"
         }
     }
 }
