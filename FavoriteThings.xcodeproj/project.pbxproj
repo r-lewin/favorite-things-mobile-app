@@ -26,6 +26,7 @@
 		E4AA0B88245FD607008996AB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4AA0B87245FD607008996AB /* MapKit.framework */; };
 		E4AA0B8A245FD7D7008996AB /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA0B89245FD7D7008996AB /* LocationViewModel.swift */; };
 		E4AA0B8C245FDE72008996AB /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA0B8B245FDE72008996AB /* LocationView.swift */; };
+		E4AA0B8E2460CA34008996AB /* KeyboardOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA0B8D2460CA34008996AB /* KeyboardOffset.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		E4AA0B87245FD607008996AB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E4AA0B89245FD7D7008996AB /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		E4AA0B8B245FDE72008996AB /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		E4AA0B8D2460CA34008996AB /* KeyboardOffset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardOffset.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				E49795232454F62800216ACB /* DetailView.swift */,
+				E4AA0B8D2460CA34008996AB /* KeyboardOffset.swift */,
 				E4AA0B8B245FDE72008996AB /* LocationView.swift */,
 				E49795212454F61F00216ACB /* RowView.swift */,
 				E497951F2454F60C00216ACB /* MasterView.swift */,
@@ -338,6 +341,7 @@
 				E49795222454F61F00216ACB /* RowView.swift in Sources */,
 				E456977E244A836B00C2C834 /* AppDelegate.swift in Sources */,
 				E4569780244A836B00C2C834 /* SceneDelegate.swift in Sources */,
+				E4AA0B8E2460CA34008996AB /* KeyboardOffset.swift in Sources */,
 				E4AA0B8A245FD7D7008996AB /* LocationViewModel.swift in Sources */,
 				E49795202454F60C00216ACB /* MasterView.swift in Sources */,
 				E49795242454F62800216ACB /* DetailView.swift in Sources */,

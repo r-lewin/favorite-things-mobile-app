@@ -18,20 +18,6 @@ struct DetailView: View {
                 .aspectRatio(contentMode: .fit)
                 .padding()
             ScrollView {
-                NavigationLink(destination: LocationView(item: item.self )){
-                    HStack() {
-                        Text(item.placeString)
-                            .fontWeight(.bold)
-                        Spacer()
-                        Text(item.latitude)
-                            .fontWeight(.light)
-                            .italic()
-                        Text(item.longitude)
-                            .fontWeight(.light)
-                            .italic()
-                        Spacer()
-                    }
-                }
                 TextField("Enter name", text: $item.nameString)
                     .font(.largeTitle)
                     .padding(.bottom)
@@ -67,9 +53,9 @@ struct DetailView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.bottom)
                 }
-            }.padding()
-            Spacer()
-        }
+            }
+        }.modifier(KeyboardOffset())
+            .animation(.spring())
     }
 }
 
