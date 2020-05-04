@@ -5,8 +5,11 @@
         <attribute name="info1" attributeType="String" defaultValueString="Info"/>
         <attribute name="info2" attributeType="String" defaultValueString="Info"/>
         <attribute name="info3" attributeType="String" defaultValueString="Info"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString="Item name"/>
         <attribute name="note" attributeType="String" defaultValueString="Item notes"/>
+        <attribute name="place" attributeType="String" defaultValueString="Griffith University Nathan"/>
         <attribute name="tag1" attributeType="String" defaultValueString="Tag"/>
         <attribute name="tag2" optional="YES" attributeType="String" defaultValueString="Tag"/>
         <attribute name="tag3" optional="YES" attributeType="String" defaultValueString="Tag"/>
@@ -17,7 +20,7 @@
         <relationship name="stores" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Item" inverseName="stored_in" inverseEntity="Item"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-17929.72265625" positionY="-3710.9296875" width="124.98828125" height="193"/>
+        <element name="Item" positionX="-17929.72265625" positionY="-3710.9296875" width="124.98828125" height="238"/>
         <element name="Item_list" positionX="-18113.02734375" positionY="-3828.80859375" width="128" height="73"/>
     </elements>
 </model>

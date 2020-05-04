@@ -9,8 +9,24 @@
 import Foundation
 import CoreData
 import SwiftUI
+import CoreLocation
 
 extension Item {
+    
+    var latitude: String {
+        get { "\(lat)" }
+        set { lat = CLLocationDegrees(newValue)! }
+    }
+    
+    var longitude: String {
+        get { "\(lon)" }
+        set {lon = CLLocationDegrees(newValue)! }
+    }
+    
+    var placeString: String {
+        get { place ?? "" }
+        set { place = newValue }
+    }
     
     // Creates computed property for name
     var nameString: String {
@@ -70,5 +86,42 @@ extension Item {
         let  downloadedImg = Image(uiImage: uiImg)
         return downloadedImg
         
+    }
+    
+    func updateCoordsFromName() {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(self.place!) { (maybePlaceMarks, maybeError) in
+            guard let placemark = maybePlaceMarks?.first,
+                let location = placemark.location else {
+                    let description: String
+                    if let error = maybeError {
+                        description = "\(error)"
+                    } else {
+                        description = "Error Unknown"
+                    }
+                    print("Error: \(description)")
+                    return
+            }
+            self.lat = location.coordinate.latitude
+            self.lon = location.coordinate.longitude
+        }
+    }
+    
+    func updateNameFromCoords() {
+        let geocoder = CLGeocoder()
+        let location = CLLocation(latitude: self.lat, longitude: self.lon)
+        geocoder.reverseGeocodeLocation(location) { (maybePlaceMarks, maybeError) in
+            guard let placemark = maybePlaceMarks?.first else {
+                let description: String
+                if let error = maybeError {
+                    description = "\(error)"
+                } else {
+                    description = "Error Unknown"
+                }
+                print("Error: \(description)")
+                return
+            }
+            self.placeString = placemark.name ?? "Location Unknown"
+        }
     }
 }
