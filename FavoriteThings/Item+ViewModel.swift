@@ -10,13 +10,14 @@ import Foundation
 import CoreData
 import SwiftUI
 import CoreLocation
+import MapKit
 
-extension Item {
+extension Item: MKMapViewDelegate {
     
-//    var coordinates: CLLocationCoordinate2D {
-//        get { CLLocationCoordinate2D(latitude: -27.962, longitude: 153.382) }
-//        set { coords = newValue }
-//    }
+    var local: Location {
+        get { (located_at) ?? Location(context: managedObjectContext!)}
+        set { located_at = newValue }
+    }
     
     var placeString: String {
         get { place ?? "" }
@@ -82,64 +83,70 @@ extension Item {
         return downloadedImg
     }
     
-    var latitudeString: String {
-        get { "\(lat)" }
-        set {
-            guard let coord = CLLocationDegrees(newValue) else { return }
-            lat = coord
-        }
-    }
+//    var latitudeString: String {
+//        get { String(lat)}
+//        set {
+//            guard let coord = CLLocationDegrees(newValue) else { return }
+//            lat = coord
+//        }
+//    }
+//
+//    var longitudeString: String {
+//        get { String(lon)}
+//        set {
+//            guard let coord = CLLocationDegrees(newValue) else { return }
+//            lon = coord
+//        }
+//    }
     
-    var longitudeString: String {
-        get { "\(lon)" }
-        set {
-            guard let coord = CLLocationDegrees(newValue) else { return }
-            lon = coord
-        }
-    }
+//    func getCoordinates() -> CLLocationCoordinate2D{
+//        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+//    }
+//
+//    var coordinates: CLLocationCoordinate2D {
+//        get { CLLocationCoordinate2D(latitude: lat, longitude: lon) }
+//    }
     
-    func getCoordinates() -> CLLocationCoordinate2D{
-        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
-    }
-    
-    var coordinates: CLLocationCoordinate2D {
-        get { CLLocationCoordinate2D(latitude: lat, longitude: lon) }
-    }
-    
-    func updateCoordsFromName() {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(self.place!) { (maybePlaceMarks, maybeError) in
-            guard let placemark = maybePlaceMarks?.first,
-                let location = placemark.location else {
-                    let description: String
-                    if let error = maybeError {
-                        description = "\(error)"
-                    } else {
-                        description = "Error Unknown"
-                    }
-                    print("Error: \(description)")
-                    return
-            }
-            self.latitudeString = String(location.coordinate.latitude)
-            self.longitudeString = String(location.coordinate.longitude)
-        }
-    }
-    
-    func updateNameFromCoords() {
-        let geocoder = CLGeocoder()
-        let location = CLLocation(latitude: self.lat, longitude: self.lon)
-        geocoder.reverseGeocodeLocation(location) { (maybePlaceMarks, maybeError) in
-            guard let placemark = maybePlaceMarks?.first else {
-                let description: String
-                if let error = maybeError {
-                    description = "\(error)"
-                } else {
-                    description = "Error Unknown"
-                }
-                print("Error: \(description)")
-                return
-            }
-            self.placeString = (placemark.name) ?? placemark.locality ?? placemark.country ?? "Unknown"
-        }
-    }
+//    public func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+//        let centre = mapView.centerCoordinate
+//        self.latitudeString = String(centre.latitude)
+//        self.longitudeString = String(centre.longitude)
+//    }
+//    
+//    func updateCoordsFromName() {
+//        let geocoder = CLGeocoder()
+//        geocoder.geocodeAddressString(self.place!) { (maybePlaceMarks, maybeError) in
+//            guard let placemark = maybePlaceMarks?.first,
+//                let location = placemark.location else {
+//                    let description: String
+//                    if let error = maybeError {
+//                        description = "\(error)"
+//                    } else {
+//                        description = "Error Unknown"
+//                    }
+//                    print("Error: \(description)")
+//                    return
+//            }
+//            self.latitudeString = String(location.coordinate.latitude)
+//            self.longitudeString = String(location.coordinate.longitude)
+//        }
+//    }
+//    
+//    func updateNameFromCoords() {
+//        let geocoder = CLGeocoder()
+//        let location = CLLocation(latitude: self.lat, longitude: self.lon)
+//        geocoder.reverseGeocodeLocation(location) { (maybePlaceMarks, maybeError) in
+//            guard let placemark = maybePlaceMarks?.first else {
+//                let description: String
+//                if let error = maybeError {
+//                    description = "\(error)"
+//                } else {
+//                    description = "Error Unknown"
+//                }
+//                print("Error: \(description)")
+//                return
+//            }
+//            self.placeString = (placemark.name) ?? placemark.locality ?? placemark.country ?? "Unknown"
+//        }
+//    }
 }

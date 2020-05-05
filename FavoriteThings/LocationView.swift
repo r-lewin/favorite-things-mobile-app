@@ -11,31 +11,29 @@ import SwiftUI
 struct LocationView: View {
     @Environment(\.managedObjectContext) var context
     @ObservedObject var item: Item
+    @ObservedObject var location: Location
     var body: some View {
         VStack(alignment: .center) {
-            MapView(item: item)
-            ScrollView {
-                HStack(alignment: .center) {
-                    Text("Location:")
-                        .font(Font.system(.headline).bold())
-                    TextField("Enter Place name", text: $item.placeString, onCommit: {
-                        self.item.updateCoordsFromName()
-                    }).font(Font.system(.headline).bold())
-                }
-                HStack(alignment: .center) {
-                    Text("Latitude:")
-                        .font(Font.system(.headline).bold())
-                    TextField("Enter latitude", text: $item.latitudeString)
-                }
-                HStack(alignment: .center) {
-                    Text("Latitude:")
-                        .font(Font.system(.headline).bold())
-                    TextField("Enter longitude", text: $item.longitudeString)
-                }
-                Button("Update Location Name"){
-                    self.item.updateNameFromCoords()
-                }
-                Spacer()
+            MapView(location: location)
+            HStack(alignment: .center) {
+                Text("Location:")
+                    .font(Font.system(.headline).bold())
+                TextField("Enter Place name", text: $item.local.nameString, onCommit: {
+                    self.item.local.updateCoordsFromName()
+                }).font(Font.system(.headline).bold())
+            }
+            HStack(alignment: .center) {
+                Text("Latitude:")
+                    .font(Font.system(.headline).bold())
+                TextField("Enter latitude", text: $item.local.latitudeString)
+            }
+            HStack(alignment: .center) {
+                Text("Latitude:")
+                    .font(Font.system(.headline).bold())
+                TextField("Enter longitude", text: $item.local.longitudeString)
+            }
+            Button("Update Location Name"){
+                self.item.local.updateNameFromCoords()
             }
         }
     }

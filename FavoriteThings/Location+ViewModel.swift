@@ -1,5 +1,5 @@
 //
-//  Location.swift
+//  Location+ViewModel.swift
 //  FavoriteThings
 //
 //  Created by Ryan Lewin on 5/5/20.
@@ -7,31 +7,43 @@
 //
 
 import Foundation
+import CoreData
+import SwiftUI
 import CoreLocation
+import MapKit
 
-class Location: Identifiable, ObservableObject {
+extension Location: MKMapViewDelegate {
     
-    @Published var coordinates = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    var nameString: String {
+        get { name ?? "" }
+        set { name = newValue }
+    }
     
-    var name = ""
-    
-    var latitude: String {
-        get { "\(coordinates.latitude)" }
-        set { guard let coord = CLLocationDegrees(newValue) else { return }
-            coordinates.latitude = coord
+    var latitudeString: String {
+        get { String(lat)}
+        set {
+            guard let coord = CLLocationDegrees(newValue) else { return }
+            lat = coord
         }
     }
     
-    var longitude: String {
-        get { "\(coordinates.longitude)" }
-        set { guard let coord = CLLocationDegrees(newValue) else { return }
-            coordinates.longitude = coord
+    var longitudeString: String {
+        get { String(lon)}
+        set {
+            guard let coord = CLLocationDegrees(newValue) else { return }
+            lon = coord
         }
+    }
+    
+    public func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        let centre = mapView.centerCoordinate
+        self.latitudeString = String(centre.latitude)
+        self.longitudeString = String(centre.longitude)
     }
     
     func updateCoordsFromName() {
         let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(self.name) { (maybePlaceMarks, maybeError) in
+        geocoder.geocodeAddressString(self.name!) { (maybePlaceMarks, maybeError) in
             guard let placemark = maybePlaceMarks?.first,
                 let location = placemark.location else {
                     let description: String
@@ -43,13 +55,14 @@ class Location: Identifiable, ObservableObject {
                     print("Error: \(description)")
                     return
             }
-            self.coordinates = location.coordinate
+            self.latitudeString = String(location.coordinate.latitude)
+            self.longitudeString = String(location.coordinate.longitude)
         }
     }
     
     func updateNameFromCoords() {
         let geocoder = CLGeocoder()
-        let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+        let location = CLLocation(latitude: self.lat, longitude: self.lon)
         geocoder.reverseGeocodeLocation(location) { (maybePlaceMarks, maybeError) in
             guard let placemark = maybePlaceMarks?.first else {
                 let description: String
@@ -61,7 +74,8 @@ class Location: Identifiable, ObservableObject {
                 print("Error: \(description)")
                 return
             }
-            self.name = placemark.name ?? placemark.locality ?? placemark.country ?? "Unknown"
+            self.nameString = (placemark.name) ?? placemark.locality ?? placemark.country ?? "Unknown"
         }
     }
 }
+

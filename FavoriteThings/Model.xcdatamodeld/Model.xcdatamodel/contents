@@ -14,14 +14,23 @@
         <attribute name="tag1" attributeType="String" defaultValueString="Tag"/>
         <attribute name="tag2" optional="YES" attributeType="String" defaultValueString="Tag"/>
         <attribute name="tag3" optional="YES" attributeType="String" defaultValueString="Tag"/>
+        <relationship name="located_at" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="is_located" inverseEntity="Location"/>
         <relationship name="stored_in" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item_list" inverseName="stores" inverseEntity="Item_list"/>
     </entity>
     <entity name="Item_list" representedClassName="Item_list" syncable="YES" codeGenerationType="class">
         <attribute name="title" attributeType="String" defaultValueString="List title"/>
         <relationship name="stores" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Item" inverseName="stored_in" inverseEntity="Item"/>
     </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES" codeGenerationType="class">
+        <attribute name="lat" attributeType="Double" defaultValueString="-27.470125" usesScalarValueType="YES"/>
+        <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="153.0251" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString="Brisbane"/>
+        <attribute name="updating" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="is_located" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="located_at" inverseEntity="Item"/>
+    </entity>
     <elements>
-        <element name="Item" positionX="-17929.72265625" positionY="-3710.9296875" width="124.98828125" height="253"/>
+        <element name="Item" positionX="-17929.72265625" positionY="-3710.9296875" width="124.98828125" height="268"/>
         <element name="Item_list" positionX="-18113.02734375" positionY="-3828.80859375" width="128" height="73"/>
+        <element name="Location" positionX="-18027" positionY="-3672" width="128" height="118"/>
     </elements>
 </model>
