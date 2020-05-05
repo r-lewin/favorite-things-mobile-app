@@ -35,13 +35,26 @@ extension Location: MKMapViewDelegate {
         }
     }
     
+    public override var isUpdated: Bool {
+        get { updating }
+        set { updating = newValue }
+    }
+    
+    func updated() {
+        isUpdated = false
+    }
+    
     public func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        isUpdated = true
         let centre = mapView.centerCoordinate
         self.latitudeString = String(centre.latitude)
         self.longitudeString = String(centre.longitude)
+        self.updateCoordsFromName()
+        self.updateNameFromCoords()
     }
     
     func updateCoordsFromName() {
+//        isUpdated = true
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(self.name!) { (maybePlaceMarks, maybeError) in
             guard let placemark = maybePlaceMarks?.first,
@@ -61,6 +74,7 @@ extension Location: MKMapViewDelegate {
     }
     
     func updateNameFromCoords() {
+//        isUpdated = true
         let geocoder = CLGeocoder()
         let location = CLLocation(latitude: self.lat, longitude: self.lon)
         geocoder.reverseGeocodeLocation(location) { (maybePlaceMarks, maybeError) in

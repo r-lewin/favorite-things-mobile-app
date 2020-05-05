@@ -12,29 +12,33 @@ struct LocationView: View {
     @Environment(\.managedObjectContext) var context
     @ObservedObject var item: Item
     @ObservedObject var location: Location
+    
     var body: some View {
         VStack(alignment: .center) {
-            MapView(location: location)
+            MapView(item: item, location: location)
             HStack(alignment: .center) {
                 Text("Location:")
                     .font(Font.system(.headline).bold())
-                TextField("Enter Place name", text: $item.local.nameString, onCommit: {
-                    self.item.local.updateCoordsFromName()
+                TextField("Enter Place name", text: $location.nameString, onCommit: {
+                    self.location.updateCoordsFromName()
                 }).font(Font.system(.headline).bold())
             }
             HStack(alignment: .center) {
                 Text("Latitude:")
                     .font(Font.system(.headline).bold())
-                TextField("Enter latitude", text: $item.local.latitudeString)
+                TextField("Enter latitude", text: $location.latitudeString)
             }
             HStack(alignment: .center) {
                 Text("Latitude:")
                     .font(Font.system(.headline).bold())
-                TextField("Enter longitude", text: $item.local.longitudeString)
+                TextField("Enter longitude", text: $location.longitudeString)
             }
             Button("Update Location Name"){
-                self.item.local.updateNameFromCoords()
+                self.location.updateNameFromCoords()
             }
         }
+        .padding(.bottom)
+        .modifier(KeyboardOffset())
+        .animation(.spring())
     }
 }

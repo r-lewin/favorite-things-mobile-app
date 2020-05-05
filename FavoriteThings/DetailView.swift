@@ -19,7 +19,7 @@ struct DetailView: View {
                 .aspectRatio(contentMode: .fit)
                 .padding()
             ScrollView {
-                NavigationLink(destination: LocationView(item: item.self, location: item.local )){
+                NavigationLink(destination: LocationView(item: item.self, location: location)){
                    HStack() {
                         Text(item.local.nameString)
                            .fontWeight(.bold)
