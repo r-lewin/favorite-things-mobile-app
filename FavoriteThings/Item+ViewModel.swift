@@ -13,20 +13,10 @@ import CoreLocation
 
 extension Item {
     
-    var coordinates: CLLocationCoordinate2D {
-        get { CLLocationCoordinate2D(latitude: -27.962, longitude: 153.382) }
-        set { newValue }
-    }
-    
-    var latitude: String {
-        get { "\(lat)" }
-        set { lat = CLLocationDegrees(newValue) ?? coordinates.latitude}
-    }
-    
-    var longitude: String {
-        get { "\(lon)" }
-        set {lon = CLLocationDegrees(newValue) ?? coordinates.longitude }
-    }
+//    var coordinates: CLLocationCoordinate2D {
+//        get { CLLocationCoordinate2D(latitude: -27.962, longitude: 153.382) }
+//        set { coords = newValue }
+//    }
     
     var placeString: String {
         get { place ?? "" }
@@ -90,7 +80,30 @@ extension Item {
         // Returns downloaded img if valid and found using the picURL - Adds to image cache
         let  downloadedImg = Image(uiImage: uiImg)
         return downloadedImg
-        
+    }
+    
+    var latitudeString: String {
+        get { "\(lat)" }
+        set {
+            guard let coord = CLLocationDegrees(newValue) else { return }
+            lat = coord
+        }
+    }
+    
+    var longitudeString: String {
+        get { "\(lon)" }
+        set {
+            guard let coord = CLLocationDegrees(newValue) else { return }
+            lon = coord
+        }
+    }
+    
+    func getCoordinates() -> CLLocationCoordinate2D{
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    }
+    
+    var coordinates: CLLocationCoordinate2D {
+        get { CLLocationCoordinate2D(latitude: lat, longitude: lon) }
     }
     
     func updateCoordsFromName() {
@@ -107,9 +120,8 @@ extension Item {
                     print("Error: \(description)")
                     return
             }
-            self.coordinates = location.coordinate
-            self.lat = location.coordinate.latitude
-            self.lon = location.coordinate.longitude
+            self.latitudeString = String(location.coordinate.latitude)
+            self.longitudeString = String(location.coordinate.longitude)
         }
     }
     
@@ -127,7 +139,7 @@ extension Item {
                 print("Error: \(description)")
                 return
             }
-            self.placeString = placemark.name ?? placemark.locality ?? placemark.country ?? "Unknown"
+            self.placeString = (placemark.name) ?? placemark.locality ?? placemark.country ?? "Unknown"
         }
     }
 }

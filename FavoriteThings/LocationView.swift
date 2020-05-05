@@ -13,29 +13,30 @@ struct LocationView: View {
     @ObservedObject var item: Item
     var body: some View {
         VStack(alignment: .center) {
+            MapView(item: item)
             ScrollView {
                 HStack(alignment: .center) {
                     Text("Location:")
                         .font(Font.system(.headline).bold())
-                    TextField("Enter Place name", text: $item.placeString)
-                        .font(Font.system(.headline).bold())
+                    TextField("Enter Place name", text: $item.placeString, onCommit: {
+                        self.item.updateCoordsFromName()
+                    }).font(Font.system(.headline).bold())
                 }
                 HStack(alignment: .center) {
                     Text("Latitude:")
                         .font(Font.system(.headline).bold())
-                    TextField("Enter latitude", text: $item.latitude)
+                    TextField("Enter latitude", text: $item.latitudeString)
                 }
                 HStack(alignment: .center) {
                     Text("Latitude:")
                         .font(Font.system(.headline).bold())
-                    TextField("Enter longitude", text: $item.longitude)
+                    TextField("Enter longitude", text: $item.longitudeString)
                 }
                 Button("Update Location Name"){
                     self.item.updateNameFromCoords()
                 }
-                
-            }.padding()
-            Spacer()
+                Spacer()
+            }
         }
     }
 }
