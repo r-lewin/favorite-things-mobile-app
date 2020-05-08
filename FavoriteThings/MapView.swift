@@ -11,18 +11,24 @@ import MapKit
 
 struct MapView: UIViewRepresentable {
     @ObservedObject var item: Item
-    @ObservedObject var location: Location
+    @ObservedObject var local: Location
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView(frame: .zero)
-        mapView.delegate = location
-        location.updated()
+        mapView.delegate = local
+        local.updated()
         return mapView
     }
-  
+    
+//    func updateUIView(_ mapView: MKMapView, context: Context) {
+//        guard !item.local.isUpdated else { return }
+//        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.local.lat, longitude: item.local.lon), latitudinalMeters: 10_000, longitudinalMeters: 10_000)
+//        mapView.setRegion(region, animated: true)
+//    }
+//
     func updateUIView(_ mapView: MKMapView, context: Context) {
-        guard !location.isUpdated else { return }
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.lat, longitude: location.lon), latitudinalMeters: 10_000, longitudinalMeters: 10_000)
+        guard !local.isUpdated else { return }
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: local.lat, longitude: local.lon), latitudinalMeters: 10_000, longitudinalMeters: 10_000)
         mapView.setRegion(region, animated: true)
     }
     

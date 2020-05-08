@@ -54,7 +54,7 @@ extension Location: MKMapViewDelegate {
     }
     
     func updateCoordsFromName() {
-//        isUpdated = true
+        isUpdated = true
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(self.name!) { (maybePlaceMarks, maybeError) in
             guard let placemark = maybePlaceMarks?.first,
@@ -74,7 +74,6 @@ extension Location: MKMapViewDelegate {
     }
     
     func updateNameFromCoords() {
-//        isUpdated = true
         let geocoder = CLGeocoder()
         let location = CLLocation(latitude: self.lat, longitude: self.lon)
         geocoder.reverseGeocodeLocation(location) { (maybePlaceMarks, maybeError) in
@@ -90,6 +89,7 @@ extension Location: MKMapViewDelegate {
             }
             self.nameString = (placemark.name) ?? placemark.locality ?? placemark.country ?? "Unknown"
         }
+        isUpdated = true
     }
 }
 
