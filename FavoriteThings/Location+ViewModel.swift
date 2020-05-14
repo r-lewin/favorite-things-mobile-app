@@ -49,8 +49,8 @@ extension Location: MKMapViewDelegate {
         let centre = mapView.centerCoordinate
         self.latitudeString = String(centre.latitude)
         self.longitudeString = String(centre.longitude)
-        self.updateCoordsFromName()
-        self.updateNameFromCoords()
+//        self.updateCoordsFromName()
+//        self.updateNameFromCoords()
     }
     
     func updateCoordsFromName() {

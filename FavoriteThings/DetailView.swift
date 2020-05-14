@@ -11,7 +11,7 @@ import SwiftUI
 struct DetailView: View {
     @Environment(\.managedObjectContext) var context
     @ObservedObject var item: Item
-//    @ObservedObject var location: Location
+    @ObservedObject var local: Location
     var body: some View {
         VStack(alignment: .center) {
             item.getImg()
@@ -19,15 +19,15 @@ struct DetailView: View {
                 .aspectRatio(contentMode: .fit)
                 .padding()
             ScrollView {
-                NavigationLink(destination: LocationView(item: item.self, local: item.local)){
+                NavigationLink(destination: LocationView(item: item.self, local: local)){
                    HStack() {
-                        Text(item.local.nameString)
+                        Text(local.nameString)
                            .fontWeight(.bold)
                        Spacer()
-                       Text(item.local.latitudeString)
+                       Text(local.latitudeString)
                            .fontWeight(.light)
                            .italic()
-                       Text(item.local.longitudeString)
+                       Text(local.longitudeString)
                            .fontWeight(.light)
                            .italic()
                        Spacer()

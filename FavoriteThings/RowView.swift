@@ -11,7 +11,7 @@ import SwiftUI
 struct ItemRowView: View {
     @ObservedObject var item: Item
     var body: some View {
-        NavigationLink(destination: DetailView(item: item.self)){
+        NavigationLink(destination: DetailView(item: item.self, local: item.local)){
             HStack() {
                 item.getImg()
                     .resizable()

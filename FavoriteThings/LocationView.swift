@@ -15,11 +15,11 @@ struct LocationView: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            MapView(item: item, local: item.local)
+            MapView(item: item, local: local)
             HStack(alignment: .center) {
                 Text("Location:")
                     .font(Font.system(.headline).bold())
-                TextField("Enter Place name", text: $item.local.nameString, onCommit: {
+                TextField("Enter Place name", text: $local.nameString, onCommit: {
                     self.item.local.updateCoordsFromName()
                     try? self.context.save()
                 }).font(Font.system(.headline).bold())
@@ -27,15 +27,15 @@ struct LocationView: View {
             HStack(alignment: .center) {
                 Text("Latitude:")
                     .font(Font.system(.headline).bold())
-                TextField("Enter latitude", text: $item.local.latitudeString)
+                TextField("Enter latitude", text: $local.latitudeString)
             }
             HStack(alignment: .center) {
                 Text("Latitude:")
                     .font(Font.system(.headline).bold())
-                TextField("Enter longitude", text: $item.local.longitudeString)
+                TextField("Enter longitude", text: $local.longitudeString)
             }
             Button("Update Location Name"){
-                self.item.local.updateNameFromCoords()
+                self.local.updateNameFromCoords()
                 try? self.context.save()
             }
         }
