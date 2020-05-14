@@ -21,13 +21,10 @@ struct DetailView: View {
             ScrollView {
                 NavigationLink(destination: LocationView(item: item.self, local: local)){
                    HStack() {
-                        Text(local.nameString)
+                        Text("Location: ")
                            .fontWeight(.bold)
                        Spacer()
-                       Text(local.latitudeString)
-                           .fontWeight(.light)
-                           .italic()
-                       Text(local.longitudeString)
+                       Text(local.nameString)
                            .fontWeight(.light)
                            .italic()
                        Spacer()
@@ -35,7 +32,7 @@ struct DetailView: View {
                }
                 TextField("Enter name", text: $item.nameString)
                     .font(.largeTitle)
-                    .padding(.bottom)
+//                    .padding(.bottom)
                 HStack(alignment: .center) {
                     TextField("Enter tag", text: $item.tag1String)
                         .font(Font.system(.headline).bold())
@@ -52,25 +49,26 @@ struct DetailView: View {
                     TextField("Enter info", text: $item.info3String)
                         .padding(.bottom)
                 }
-                VStack(alignment:.center){
-                    Text("Item Note")
-                        .font(.title)
+                HStack(){
+                    Text("Item Notes")
+//                        .font(.title)
                     TextField("Enter text", text: $item.noteString)
                         .border(Color.gray)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.bottom)
+//                        .padding(.bottom)
                 }
-                VStack(alignment: .center) {
-                    Text("Icon Url")
-                        .font(.title)
+                HStack() {
+                    Text("Image Link")
+//                        .font(.title)
                     TextField("Enter Url", text: $item.urlString)
                     .border(Color.gray)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.bottom)
+//                        .padding(.bottom)
                 }
             }
         }.modifier(KeyboardOffset())
             .animation(.spring())
+            .padding()
     }
 }
 

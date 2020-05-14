@@ -21,8 +21,10 @@ struct ContentView: View {
                         action: {
                             withAnimation {
                                 let item = Item(context: self.context)
+                                let location = Location(context: self.context)
                                 item.name = "Item \((self.item_lists.first?.entries.count ?? 0) + 1)"
                                 item.stored_in = self.item_lists.first
+                                item.located_at = location
                                 try? self.context.save()
                             }
                         }

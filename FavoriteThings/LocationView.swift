@@ -42,5 +42,6 @@ struct LocationView: View {
         .padding(.bottom)
         .modifier(KeyboardOffset())
         .animation(.spring())
+        .onDisappear(perform: { try? self.context.save() })
     }
 }
